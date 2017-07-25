@@ -1,0 +1,20 @@
+# ip1[/ip2[/ip3[/ip...]]] project_tag1[,project_tag2[,project_tag...]] [only_connect_to_host_options...]
+# project_tag内容只能这些字符: [0-9] _ [a-z] [A-Z]
+# only_connect_to_host_options选项格式必须是 -OPTION1 [parameter1] -OPTION2 [parameter2] 这样的格式，并且只能是连接到主机的选项
+
+1.2.3.4/5.6.7.8/9.10.11.12   test,test_tag1,test2,test_tag3    -u root -i ~/.ssh/id_rsa_some -A -p 20222 
+1.2.3.5/54.6.7.8             test    -u root -A -p 20222 
+1.2.3.1/5.6.7.89             test    -u someone -i .ssh/id_rsa -A   -p 20222 
+1.223.3.1/54.6.7.9/8.8.8.8           test    -u user1  -i ~/.ssh/id_rsa_tag -A    -p   20222 -n 3 
+
+192.168.1.138/172.16.30.42 tagname,tagname_db            -w o_N138
+192.168.1.139/172.16.30.43 tagname,tagname_db,tagname_tj -w o_N139
+192.168.1.156/172.16.30.60 tagname,tagname_game
+192.168.1.157/172.16.30.61 tagname,tagname_game
+192.168.1.158/172.16.30.62 tagname,tagname_game,test
+
+192.168.62.15     project,tagname_ot    -w   t_v62.151
+192.168.62.77      project,tagname_ot    -w ot_77
+192.168.62.10      project,test_tag1
+192.168.62.16      project,project_tag
+

@@ -1,0 +1,151 @@
+#!/bin/bash
+
+# --------- #
+# functions #
+# --------- #
+
+help(){
+  echo "help usage:"
+  echo ""
+  echo "  tmssh -h         Show this message."
+  echo "  tmssh -v         Report the tmssh version."
+  echo ""
+  echo "  tmssh -l         Show all groups."
+  echo "  tmssh -l group_name"
+  echo "                   Show hosts in group."
+  echo "  tmssh -e         Edit hosts."
+  echo ""
+  echo "  tmssh [-Auis] group_name"
+  echo "                   Connect to a group"
+  echo "  tmssh [-Anpuiw] group_name host_id"
+  echo "                   Connect to a host"
+  echo "  options:"
+  echo "     -A            Enables forwarding of the authentication agent connection."
+  echo "     -n <1-9>      Use specified ip to connect to the remote host if possible."
+  echo "     -p port       Port to connect to on the remote host."
+  echo "     -u username   Login whith this username."
+  echo "     -i identity_file"
+  echo "                   Selects a file from which the identity (private key) for public key authentication is read."
+  echo "     -s tmux_session_name"
+  echo "                   Use tmux_session_name on tmux instead of group_name."
+  echo "     -w tmux_window_name"
+  echo "                   Use tmux_window_name on tmux instead of ip."
+  echo ""
+}  
+
+# ---- #
+# main #
+# ---- #
+
+# 获取脚本Home路径。
+#HOME_PATH=$(dirname $0)
+#HOME_PATH=$(dirname ${HOME_PATH})
+#HOME_PATH=$(cd ${HOME_PATH};pwd)
+#cd ${HOME_PATH}
+
+[ X"$TMSSH_HOME" = X"" ] && echo "$0 ERROR: environment variable TMSSH_HOME not set." 1>&2 && exit 1
+
+#default options
+TMSSH_OPTION_L=0
+TMSSH_OPTION_A=0
+TMSSH_OPTION_N=0
+TMSSH_OPTION_P=0
+TMSSH_OPTION_U=0
+TMSSH_OPTION_I=0
+TMSSH_OPTION_S=0
+TMSSH_OPTION_W=0
+
+#set -- $(getopt -q abcdefghijklmn:opqrstuvwxyz "$@")
+set -- $(getopt -q hvleAn:p:u:i:s:w: "$@")
+# 检查选项
+while [ -n "$1" ]
+do 
+  case "$1" in
+    -h)
+      help
+      exit 0
+      ;;
+    -v)
+      source ${TMSSH_HOME%/}/lib/show_version.sh
+      exit 0
+      ;;
+    -l)
+      TMSSH_OPTION_L=1
+      ;;
+    -e)
+      source ${TMSSH_HOME%/}/lib/edit_hosts_data.sh
+      exit 0
+      ;;
+    -A)
+      TMSSH_OPTION_A=1
+      ;;
+    -n)
+      TMSSH_OPTION_N=1
+      TMSSH_IP_OFFSET=$2
+      TMSSH_IP_OFFSET=${TMSSH_IP_OFFSET//\'/}
+      shift
+      ;;
+    -p)
+      TMSSH_OPTION_P=1
+      TMSSH_PORT=$2
+      TMSSH_PORT=${TMSSH_PORT//\'/}
+      shift
+      ;;
+    -u)
+      TMSSH_OPTION_U=1
+      TMSSH_USERNAME=$2
+      TMSSH_USERNAME=${TMSSH_USERNAME//\'/}
+      shift
+      ;;
+    -i)
+      TMSSH_OPTION_I=1
+      TMSSH_IDENTITY_FILE=$2
+      TMSSH_IDENTITY_FILE=${TMSSH_IDENTITY_FILE//\'/}
+      shift
+      ;;
+    -s)
+      TMSSH_OPTION_S=1
+      TMSSH_TMUX_SESSION_NAME=$2
+      TMSSH_TMUX_SESSION_NAME=${TMSSH_TMUX_SESSION_NAME//\'/}
+      shift
+      ;;
+    -w)
+      TMSSH_OPTION_W=1
+      TMSSH_TMUX_WINDOW_NAME=$2
+      TMSSH_TMUX_WINDOW_NAME=${TMSSH_TMUX_WINDOW_NAME//\'/}
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo "$1 is not a option."
+      echo "USE: [$0 -h] to get help info."
+      exit 1
+      ;;
+  esac
+  shift
+done
+[[ "$1" == "" ]] && [[ $TMSSH_OPTION_L == 0 ]]  && help && exit 1
+
+TMSSH_GROUP=$1
+TMSSH_HOST=$2
+# 去掉字符串两头的 ' 号
+TMSSH_GROUP=${TMSSH_GROUP//\'/}
+TMSSH_HOST=${TMSSH_HOST//\'/}
+
+if [[ $TMSSH_OPTION_L == 1 ]];then
+  # 查看项目列表和主机列表信息
+  # tmssh -l
+  # tmssh -l group_name
+  source ${TMSSH_HOME%/}/lib/show_groups_info.sh
+else
+  if [[ "${TMSSH_HOST}" == "" ]];then
+    source ${TMSSH_HOME%/}/lib/ssh_to_group.sh
+  else
+    source ${TMSSH_HOME%/}/lib/ssh_to_host.sh
+  fi
+fi
+#exit 0
+
