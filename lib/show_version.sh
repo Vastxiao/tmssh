@@ -1,4 +1,4 @@
 # show version script.
 
-echo "tmssh 1.0.0"
+echo "tmssh 1.0.1"
 
