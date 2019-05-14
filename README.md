@@ -28,6 +28,9 @@ source ${TMSSH_HOME%/}/etc/bash_env_load.sh
 
 # 你也可以直接将 bash_env_load.sh 文件放入 /etc/profile.d/ 目录下。
 # 然后也可以根据需要修改或配置 bash_env_load.sh 中的参数到shell环境中。
+
+# 另外[可选项]可以指定默认的ssh用户名
+export TMSSH_SSH_USER=root
 ```
 
 接着就是编辑hosts文件信息了，相关的hosts文件模板是hosts.txt.template：

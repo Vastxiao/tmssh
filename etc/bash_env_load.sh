@@ -8,6 +8,8 @@ export TMSSH_HOME=${TMSSH_HOME:-"/usr/local/tmssh"}
 # 指定文本编辑器
 #export EDITOR=vim
 
+# 指定默认ssh用户名
+#export TMSSH_SSH_USER=root
 
 [ ! -f ${TMSSH_HOME%/}/bin/tmssh ] && echo "${TMSSH_HOME%/}/lib/bash_env_load.sh ERROR: ${TMSSH_HOME%}/bin/tmssh not exist." 1>&2 && return 1
 # 加载bin下命令

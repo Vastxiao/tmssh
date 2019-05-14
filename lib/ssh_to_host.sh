@@ -70,6 +70,8 @@ check_ssh_options() {
     check_host_data_option -u
     if [[ $? == 0 ]];then
       TMSSH_ssh_u="$(get_host_data_option_value -u)@"
+    elif [[ $TMSSH_SSH_USER != "" ]];then
+      TMSSH_ssh_u="${TMSSH_SSH_USER}@"
     fi
   fi
 
