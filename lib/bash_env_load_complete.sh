@@ -27,7 +27,7 @@ function _tmssh() {
   if [[ $prev == tmssh ]] || [[ $prev == -* ]] || [[ $prev2 == -[npuisw] ]];then
     source ${TMSSH_HOME%/}/lib/get_hosts_data.sh groups
     COMPREPLY=( $(compgen -W "$TMSSH_GROUPS" -- ${cur}) )
-  elif [[ "$prev2" != "-l" ]];then
+  elif [[ "$prev2" != "-l" ]] && ! [[ $prev =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]];then
     TMSSH_GROUP=$prev
     source ${TMSSH_HOME%/}/lib/get_hosts_data.sh group_hosts
     COMPREPLY=( $(compgen -W "$(echo -e "${TMSSH_GROUP_HOSTS}" |sed 's@[[:space:]].*$@@;s@/.*$@@')" -- ${cur}) )
