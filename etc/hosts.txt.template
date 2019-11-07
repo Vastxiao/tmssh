@@ -1,5 +1,5 @@
 # ip1[/ip2[/ip3[/ip...]]] project_tag1[,project_tag2[,project_tag...]] [only_connect_to_host_options...]
-# project_tag内容只能这些字符: [0-9] _ [a-z] [A-Z]
+# project_tag内容只能这些字符: [0-9] [a-z] [A-Z] - _
 # only_connect_to_host_options选项格式必须是 -OPTION1 [parameter1] -OPTION2 [parameter2] 这样的格式，并且只能是连接到主机的选项
 
 1.2.3.4/5.6.7.8/9.10.11.12   test,test_tag1,test2,test_tag3    -u root -i ~/.ssh/id_rsa_some -A -p 20222 
