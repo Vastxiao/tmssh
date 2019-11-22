@@ -55,8 +55,10 @@ TMSSH_OPTION_I=0
 TMSSH_OPTION_S=0
 TMSSH_OPTION_W=0
 
-#set -- $(getopt -q abcdefghijklmn:opqrstuvwxyz "$@")
-set -- $(getopt -q hvleAn:p:u:i:s:w: "$@")
+set -- $(getopt -q abcdefghijklmn:opqrstuvwxyz "$@")
+#OPT_CMD=$(getopt -q hvleAn:p:u:i:s:w: $@)
+#set -- $OPT_CMD
+
 # 检查选项
 while [ -n "$1" ]
 do 
