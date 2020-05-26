@@ -55,7 +55,7 @@ TMSSH_OPTION_I=0
 TMSSH_OPTION_S=0
 TMSSH_OPTION_W=0
 
-set -- $(getopt -q abcdefghijklmn:opqrs:tuvw:xyz "$@")
+set -- $(getopt -q abcdefghi:jklmn:op:qrs:tu:vw:xyzA "$@")
 #OPT_CMD=$(getopt -q hvleAn:p:u:i:s:w: $@)
 #set -- $OPT_CMD
 
