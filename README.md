@@ -22,12 +22,13 @@ git clone https://github.com/Vastxiao/tmssh /usr/local/tmssh
 tmssh环境配置很简单，仅需要在 bash 环境中加载 bash_env_load.sh 环境配置:
 
 ```bash
-# 可以在/etc/profile ~/.profile ~/.bashrc 等加载这个文件:
+# 可以在 ~/.bashrc ~/.zshrc 等加载这个内容
+
+# 如果出现 complete: command not found 错误，就加载以下两行：
+#autoload bashcompinit
+#bashcompinit
 export TMSSH_HOME=/usr/local/tmssh
 source ${TMSSH_HOME%/}/etc/bash_env_load.sh
-
-# 你也可以直接将 bash_env_load.sh 文件放入 /etc/profile.d/ 目录下。
-# 然后也可以根据需要修改或配置 bash_env_load.sh 中的参数到shell环境中。
 
 # 另外[可选项]可以指定默认的ssh用户名
 export TMSSH_SSH_USER=root
@@ -73,5 +74,3 @@ help usage:
      -w tmux_window_name
                    Use tmux_window_name on tmux instead of ip.
 ```
-
-

@@ -1,6 +1,13 @@
 # bash 环境加载
-# 可以在/etc/profile /etc/profile.d/ ~/.profile ~/.bashrc 等加载这个文件:
+# 可以在 ~/.bashrc ~/.zshrc 等加载这个文件：
 #    source TMSSH_HOME/etc/bash_env_load.sh
+#
+# 如果出现 complete: command not found 错误，就在bash_env_load.sh前加载以下两行：
+# autoload bashcompinit
+# bashcompinit
+
+
+
 
 # tmssh home 目录，根据目录位置修改
 export TMSSH_HOME=${TMSSH_HOME:-"/usr/local/tmssh"}
